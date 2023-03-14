@@ -1,0 +1,2 @@
+#!/bin/hash
+tr -d "Cc"
