@@ -1,0 +1,2 @@
+#!/bin/bash
+echo printf -v "$NUM""%.2f\n" "$NUM"
