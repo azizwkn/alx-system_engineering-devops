@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Script manages manage_my_process process.
+# Requirements:
+# when passing the argument start:
+#	starts manage_my_process
+#	creates a file containing its PID in /var/run/my_process.pid
+#	displays manage_my_process started
+# when passing the argument stop:
+#	stops manage_my_process
+#	deletes the file /var/run/my_process.pid
+#	displays manage_my_process stopped
+# when passing the argument restart
+# 	stops manage_my_process
+# 	deletes the file /var/run/my_process.pid
+# 	starts manage_my_process
+# 	creates a file containing its PID in /var/run/my_process.pid
+# 	displays manage_my_process restarted
+# displays Usage: manage_my_process {start|stop|restart} if any
+# other argument or no argument is passed
+
+if [ "${1}" == "start" ]
+then
+    ./manage_my_process &
+    touch /var/run/my_process.pid
+    echo "$!" > /var/run/my_process.pid
+    echo "manage_my_process started"
+elif [ "${1}" == "stop" ]
+then
+    echo "manage_my_process stopped"
+    kill "$(cat /var/run/my_process.pid)"
+    rm /var/run/my_process.pid
+elif [ "${1}" == "restart" ]
+then
+    kill "$(cat /var/run/my_process.pid)"
+    rm /var/run/my_process.pid
+    ./manage_my_process &
+    touch /var/run/my_process.pid
+    echo "$!" > /var/run/my_process.pid
+    echo "manage_my_process restarted"
+else
+    echo "Usage: manage_my_process {start|stop|restart}"
+fi
