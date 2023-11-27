@@ -2,4 +2,4 @@
 # Uses ssh to connect to server 329327-web-01 using the 
 # private key ~/.ssh/school with the username ubuntu.
 
-ssh -i ~/.ssh/school ubuntu@54.146.65.170
+ssh -i ~/.ssh/id_rsa ubuntu@54.146.65.170
