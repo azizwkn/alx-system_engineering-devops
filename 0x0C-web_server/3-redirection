@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Configures a brand new Ubuntu machine
+
+sudo apt-get update
+sudo apt-get install -y nginx
+
+sudo service nginx start
+
+# Create a new Nginx configuration file for redirection
+sudo bash -c 'cat > /etc/nginx/sites-available/redirect_me <<CONFIG
+server {
+    listen 80;
+    server_name _;
+
+    location /redirect_me {
+        return 301 http://example.com/dest_page;
+    }
+
+    # Additional server configuration, if needed
+    # ...
+
+    # Default server configuration
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+}
+CONFIG'
+
+# Symbolic link to enable the new site
+sudo ln -s /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled/
+
+# Test Nginx configuration and reload
+sudo nginx -t
+sudo service nginx reload
