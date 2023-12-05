@@ -3,39 +3,40 @@
 # the name of the custom HTTP header must be X-Served-By
 # the value of the HTTP header is the hostname of the running server.
 
+# Update package list
+exec { 'apt_update':
+  command => 'apt-get update',
+  path    => '/usr/bin',
+}
+
+# Install Nginx
 package { 'nginx':
-  ensure => installed,
+  ensure  => 'installed',
+  require => Exec['apt_update'],
 }
 
-file { '/var/www/html':
-  ensure => directory,
-}
-
+# Configure Nginx with custom HTTP response header
 file { '/etc/nginx/sites-available/default':
-  ensure  => present,
-  content => '
-    server {
-      listen 80 default_server;
-      listen [::]:80 default_server;
-      add_header X-Served-By $hostname;
-      root /var/www/html;
-      index index.html index.htm;
+  ensure  => file,
+  content => "
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-      location /redirect_me {
-        return 301 https//youtube.com/;
-      }
+    server_name _;
 
-      error_page 404 /404.html;
-      location /404 {
-        root /var/www/html;
-        internal;
-      }
+    location / {
+        # Add custom HTTP response header
+        add_header X-Served-By ${::hostname};
     }
-  ',
+}
+",
+  require => Package['nginx'],
+  notify  => Service['nginx'],
 }
 
+# Enable Nginx to start on boot
 service { 'nginx':
-  ensure  => running,
-  enable  => true,
-  require => File['/etc/nginx/sites-available/default'],
+  ensure => 'running',
+  enable => true,
 }
