@@ -1,0 +1,40 @@
+global
+    log /dev/log local0
+    log /dev/log local1 notice
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000
+    timeout client 50000
+    timeout server 50000
+
+frontend web_front
+    bind *:80
+    mode http
+    http-request set-header X-Forwarded-Proto http
+    default_backend web_servers
+
+backend web_servers
+    mode http
+    balance roundrobin
+    server web-01 329327-web-01:80 check
+    server web-02 329327-web-02:80 check
+
+frontend  besthor_frontend
+        bind *:443 ssl crt /etc/letsencrypt/live/www.schoolsurf.tech/fullchain.pem
+        mode http
+        http-request set-header X-Forwarded-Proto https
+        default_backend besthor_backend
+backend besthor_backend
+        balance roundrobin
+        server 329327-web-01 54.146.65.170:80 check
+        server 329327-web-02 100.25.26.229:80 check
