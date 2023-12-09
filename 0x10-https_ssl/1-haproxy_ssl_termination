@@ -8,6 +8,14 @@ global
     group haproxy
     daemon
 
+    # turn on stats unix socket
+    stats socket /var/lib/haproxy/stats
+
+    # utilize system-wide crypto-policies
+    #ssl-default-bind-ciphers PROFILE=SYSTEM
+    ssl-default-server-ciphers PROFILE=SYSTEM
+    ssl-dh-param-file /etc/haproxy/dhparams.pem
+
 defaults
     log global
     mode http
@@ -17,24 +25,18 @@ defaults
     timeout client 50000
     timeout server 50000
 
-frontend web_front
+frontend web
     bind *:80
     mode http
     http-request set-header X-Forwarded-Proto http
     default_backend web_servers
 
-backend web_servers
-    mode http
-    balance roundrobin
-    server web-01 329327-web-01:80 check
-    server web-02 329327-web-02:80 check
-
-frontend  besthor_frontend
-        bind *:443 ssl crt /etc/letsencrypt/live/www.schoolsurf.tech/fullchain.pem
+frontend web-https
+        bind *:443 ssl crt /etc/letsencrypt/live/www.schoolsurf.tech/fullchain1.pem
         mode http
         http-request set-header X-Forwarded-Proto https
-        default_backend besthor_backend
-backend besthor_backend
+        default_backend web_servers
+backend web_servers
         balance roundrobin
         server 329327-web-01 54.146.65.170:80 check
         server 329327-web-02 100.25.26.229:80 check
