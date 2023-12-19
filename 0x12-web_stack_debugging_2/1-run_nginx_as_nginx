@@ -1,26 +1,10 @@
 #!/usr/bin/env bash
 # configures a container to run Nginx as nginx user
 
-# Set the nginx user in the Nginx configuration
-awk -v user="nginx" '/^user/ {$0 = "user " user ";"} 1' /etc/nginx/nginx.conf > /tmp/nginx.conf.tmp
-mv /tmp/nginx.conf.tmp /etc/nginx/nginx.conf
+chmod 644 /etc/nginx/nginx.conf
+sed -Ei 's/\s*#?\s*user .*/user nginx;/' /etc/nginx/nginx.conf
+sed -Ei 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
+pkill apache2
 
-# Create a server block to listen on port 8080
-cat <<EOL > /etc/nginx/sites-available/default
-server {
-    listen 8080 default_server;
-    server_name _;
-
-    # additional configuration goes here
-
-    location / {
-        # configuration goes here
-    }
-}
-EOL
-
-# Restart Nginx to apply the changes
+# Restart Nginx
 service nginx restart
-
-# Display Nginx status
-service nginx status 
