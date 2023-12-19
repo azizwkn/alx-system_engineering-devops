@@ -6,15 +6,15 @@ awk -v user="nginx" '/^user/ {$0 = "user " user ";"} 1' /etc/nginx/nginx.conf > 
 mv /tmp/nginx.conf.tmp /etc/nginx/nginx.conf
 
 # Create a server block to listen on port 8080
-cat <<EOL >> /etc/nginx/sites-available/default
+cat <<EOL > /etc/nginx/sites-available/default
 server {
     listen 8080 default_server;
     server_name _;
 
-    # Your additional configuration goes here
+    # additional configuration goes here
 
     location / {
-        #
+        # configuration goes here
     }
 }
 EOL
