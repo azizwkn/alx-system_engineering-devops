@@ -2,4 +2,4 @@
 # accepts one arg and runs the whoami command under the user passed as an arg
 
 username=$1
-sudo -u $username whoami
+sudo -u "$username" whoami
