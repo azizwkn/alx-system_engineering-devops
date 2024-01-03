@@ -3,32 +3,29 @@
 """
 Gather data from an API
 """
+import re
 import requests
 import sys
 
 
-def info():
+if __name__ == '__main__':
+    base_url = "https://jsonplaceholder.typicode.com"
 
-    emp = requests.get('https://jsonplaceholder.typicode.com/users/{}'
-                       .format(sys.argv[1]))
-    name = emp.json().get('name')
-    tasks = requests.get('https://jsonplaceholder.typicode.com/todos')
-    tasks = tasks.json()
-    complete = 0
-    titles = []
-    total = 0
-    for task in tasks:
-        if task['userId'] == int(sys.argv[1]):
-            if task['completed'] is True:
-                complete += 1
-                titles.append(task['title'])
-            total += 1
-    print("Employee {} is done with tasks({}/{}):"
-          .format(name, complete, total))
-    for title in titles:
-        print('\t ', end="")
-        print(title)
-
-
-if __name__ == "__main__":
-    info()
+    if len(sys.argv) > 1:
+        if re.fullmatch(r'\d+', sys.argv[1]):
+            id = int(sys.argv[1])
+            request = requests.get('{}/users/{}'.format(base_url, id)).json()
+            task_request = requests.get('{}/todos'.format(base_url)).json()
+            user_name = request.get('name')
+            tasks = list(filter(lambda x: x.get('userId') == id, task_request))
+            completed_tasks = list(filter(lambda x: x.get('completed'), tasks))
+            print(
+                'Employee {} is done with tasks({}/{}):'.format(
+                    user_name,
+                    len(completed_tasks),
+                    len(tasks)
+                )
+            )
+            if len(completed_tasks) > 0:
+                for task in completed_tasks:
+                    print('\t {}'.format(task.get('title')))
