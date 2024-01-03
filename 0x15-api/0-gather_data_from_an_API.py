@@ -4,36 +4,36 @@
 Gather data from an API
 """
 
-import json
 import requests
 import sys
 
 if __name__ == "__main__":
-    def fetch_todo_progress(employee_id):
-        base_url = "https://jsonplaceholder.typicode.com"
-        user_url = f"{base_url}/users/{employee_id}"
-        todo_url = f"{user_url}/todos"
+    base_url = "https://jsonplaceholder.typicode.com/"
 
-        # Fetch user information
-        user_response = requests.get(user_url)
-        user_data = user_response.json()
+    # Construct the URL for the user API endpoint using the user ID
+    # from the command-line argument
+    user_id = sys.argv[1]
+    user_url = base_url + "users/{}".format(user_id)
 
-        # Fetch TODO list for the user
-        todo_response = requests.get(todo_url)
-        todo_data = todo_response.json()
+    user_response = requests.get(user_url)
+    user_data = user_response.json()
 
-        # Filter completed tasks
-        completed_tasks = [task for task in todo_data if task['completed']]
+    # Construct the URL for the todos API endpoint with a query parameter
+    # for the user ID
+    todos_url = base_url + "todos"
+    todos_params = {"userId": user_id}
 
-        # Display information
-        print(f"Employee {user_data['name']} is done with tasks "
-              f"({len(completed_tasks)}/{len(todo_data)}):")
+    todos_response = requests.get(todos_url, params=todos_params)
+    todos_data = todos_response.json()
 
-        # Display completed tasks
-        for task in completed_tasks:
-            print("\t", task['title'])
+    # Filter completed tasks and retrieve their titles
+    completed_tasks = [task.get("title") for task in todos_data
+                       if task.get("completed")]
 
-    # Check if an employee ID is provided as a command-line argument
-    if len(sys.argv) > 1 and sys.argv[1].isdigit():
-        employee_id = int(sys.argv[1])
-        fetch_todo_progress(employee_id)
+    # Display information about completed tasks
+    print("Employee {} is done with tasks({}/{}):".format(
+        user_data.get("name"), len(completed_tasks), len(todos_data)))
+
+    # Display the titles of completed tasks
+    for task_title in completed_tasks:
+        print("\t {}".format(task_title))
