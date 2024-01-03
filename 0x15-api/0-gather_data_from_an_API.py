@@ -3,7 +3,6 @@
 """
 Gather data from an API
 """
-import re
 import requests
 import sys
 
@@ -11,21 +10,30 @@ import sys
 if __name__ == '__main__':
     base_url = "https://jsonplaceholder.typicode.com"
 
-    if len(sys.argv) > 1:
-        if re.fullmatch(r'\d+', sys.argv[1]):
-            id = int(sys.argv[1])
-            request = requests.get('{}/users/{}'.format(base_url, id)).json()
-            task_request = requests.get('{}/todos'.format(base_url)).json()
-            user_name = request.get('name')
-            tasks = list(filter(lambda x: x.get('userId') == id, task_request))
-            completed_tasks = list(filter(lambda x: x.get('completed'), tasks))
-            print(
-                'Employee {} is done with tasks({}/{}):'.format(
-                    user_name,
-                    len(completed_tasks),
-                    len(tasks)
-                )
-            )
-            if len(completed_tasks) > 0:
-                for task in completed_tasks:
-                    print('\t {}'.format(task.get('title')))
+    # Construct the URL for the user API endpoint
+    user_id = sys.argv[1]
+    user_url = base_url + "/users/{}".format(user_id)
+
+    # Make an HTTP GET request to the user API endpoint
+    user_response = requests.get(user_url)
+    user_data = user_response.json()
+
+    # Construct the URL for the todos API endpoint
+    todos_url = base_url + "/todos"
+    todos_params = {"userId": user_id}
+
+    # Make an HTTP GET request to the todos API endpoint
+    todos_response = requests.get(todos_url, params=todos_params)
+    todos_data = todos_response.json()
+
+    # Filter completed tasks and retrieve their titles
+    completed_tasks = [task.get("title") for task in todos_data
+                       if task.get("completed")]
+
+    # Display information about completed tasks
+    print("Employee {} is done with tasks({}/{}):".format(
+        user_data.get("name"), len(completed_tasks), len(todos_data)))
+
+    # Display the titles of completed tasks
+    for task_title in completed_tasks:
+        print("\t {}".format(task_title))
