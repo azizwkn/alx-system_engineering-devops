@@ -5,20 +5,21 @@ import requests
 
 
 def number_of_subscribers(subreddit):
-    """Return number of subscribers"""
+    """Return number of subscribers for a given subreddit"""
 
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {
-                "Uer-Agent": "api_advanced"
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0"
     }
 
     response = requests.get(url, headers=headers, allow_redirects=False)
+
     if response.status_code == 200:
         try:
             result = response.json().get("data")
             return result.get("subscribers")
-
-        except KeyError:
+        # handle unexpected JSON structure
+        except (AttributeError, KeyError):
             return 0
     else:
         return 0
