@@ -4,13 +4,6 @@ server {
 
     server_name 54.146.65.170;
 
-    location / {
-        root /var/www/html;
-        index index.html;
-        # custom HTTP response header
-        add_header X-Served-By 329327-web-01;
-      }
-
     # serve page from the route /airbnb-onepage/
     location /airbnb-onepage/ {
         proxy_pass htitp://127.0.0.1:5000/airbnb-onepage/;
