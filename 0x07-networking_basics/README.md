@@ -1,274 +1,334 @@
-0x07. Networking basics #0
 
 
 Curriculum
 SE Foundations Average: 108.87%
-0x06. Regular expression
-RegexDevOps
+0x07. Networking basics #0
+DevOpsNetwork
 
     Weight: 1
-    Project over - took place from Oct 3, 2023 6:00 AM to Oct 4, 2023 6:00 AM
+    Project over - took place from Oct 4, 2023 6:00 AM to Oct 6, 2023 6:00 AM
     An auto review will be launched at the deadline
 
 In a nutshell…
 
-    Auto QA review: 15.6/24 mandatory & 5.85/9 optional
-    Altogether:  107.25%
-        Mandatory: 65.0%
-        Optional: 65.0%
-        Calculation:  65.0% + (65.0% * 65.0%)  == 107.25%
-
-Concepts
-
-For this project, we expect you to look at this concept:
-
-    Regular Expression
-
-Background Context
-
-For this project, you have to build your regular expression using Oniguruma, a regular expression library that which is used by Ruby by default. Note that other regular expression libraries sometimes have different properties.
-
-Because the focus of this exercise is to play with regular expressions (regex), here is the Ruby code that you should use, just replace the regexp part, meaning the code in between the //:
-
-sylvain@ubuntu$ cat example.rb
-#!/usr/bin/env ruby
-puts ARGV[0].scan(/127.0.0.[0-9]/).join
-sylvain@ubuntu$
-sylvain@ubuntu$ ./example.rb 127.0.0.2
-127.0.0.2
-sylvain@ubuntu$ ./example.rb 127.0.0.1
-127.0.0.1
-sylvain@ubuntu$ ./example.rb 127.0.0.a
+    Auto QA review: 9.5/13 mandatory
+    Altogether:  73.08%
+        Mandatory: 73.08%
+        Optional: no optional tasks
 
 Resources
 
 Read or watch:
 
-    Regular expressions - basics
-    Regular expressions - advanced
-    Rubular is your best friend
-    Use a regular expression against a problem: now you have 2 problems
-    Learn Regular Expressions with simple, interactive exercises
+    OSI model
+    Different types of network
+    LAN network
+    WAN network
+    Internet
+    MAC address
+    What is an IP address
+    Private and public address
+    IPv4 and IPv6
+    Localhost
+    TCP and UDP
+    TCP/UDP ports List
+    What is ping /ICMP
+    Positional parameters
+
+man or help:
+
+    netstat
+    ping
+
+Learning Objectives
+
+At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
+OSI Model
+
+    What it is
+    How many layers it has
+    How it is organized
+
+What is a LAN
+
+    Typical usage
+    Typical geographical size
+
+What is a WAN
+
+    Typical usage
+    Typical geographical size
+
+What is the Internet
+
+    What is an IP address
+    What are the 2 types of IP address
+    What is localhost
+    What is a subnet
+    Why IPv6 was created
+
+TCP/UDP
+
+    What are the 2 mainly used data transfer protocols for IP (transfer level on the OSI schema)
+    What is the main difference between TCP and UDP
+    What is a port
+    Memorize SSH, HTTP and HTTPS port numbers
+    What tool/protocol is often used to check if a device is connected to a network
+
+Copyright - Plagiarism
+
+    You are tasked to come up with solutions for the tasks below yourself to meet with the above learning objectives.
+    You will not be able to meet the objectives of this or any following project by copying and pasting someone else’s work.
+    You are not allowed to publish any content of this project.
+    Any form of plagiarism is strictly forbidden and will result in removal from the program.
 
 Requirements
 General
 
     Allowed editors: vi, vim, emacs
-    All your files will be interpreted on Ubuntu 20.04 LTS
+    All your Bash script files will be interpreted on Ubuntu 20.04 LTS
     All your files should end with a new line
     A README.md file, at the root of the folder of the project, is mandatory
     All your Bash script files must be executable
-    The first line of all your Bash scripts should be exactly #!/usr/bin/env ruby
-    All your regex must be built for the Oniguruma library
+    Your Bash script must pass shellcheck without any error
+    The first line of all your Bash scripts should be exactly #!/usr/bin/env bash
+    The second line of all your Bash scripts should be a comment explaining what is the script doing
 
-Quiz questions
-Great! You've completed the quiz successfully! Keep going! (Show quiz)
+More Info
+
+The second line of all your Bash scripts should be a comment explaining what is the script doing
+
+For multiple choice question type tasks, just type the number of the correct answer in your answer file, add a new line for every new answer, example:
+
+What is the most important position in a software company?
+
+    Project manager
+    Backend developer
+    System administrator
+
+sylvain@ubuntu$ cat foo_answer_file
+3
+sylvain@ubuntu$
+
+Source for question 1 here
 Tasks
-0. Simply matching School
+0. OSI model
 mandatory
 Score: 65.0% (Checks completed: 100.0%)
 
-Requirements:
+OSI (Open Systems Interconnection) is an abstract model to describe layered communication and computer network design. The idea is to segregate the different parts of what make communication possible.
 
-    The regular expression must match School
-    Using the project instructions, create a Ruby script that accepts one argument and pass it to a regular expression matching method
+It is organized from the lowest level to the highest level:
+
+    The lowest level: layer 1 which is for transmission on physical layers with electrical impulse, light or radio signal
+    The highest level: layer 7 which is for application specific communication like SNMP for emails, HTTP for your web browser, etc
+
+Keep in mind that the OSI model is a concept, it’s not even tangible. The OSI model doesn’t perform any functions in the networking process. It is a conceptual framework so we can better understand complex interactions that are happening. Most of the functionality in the OSI model exists in all communications systems.
+
+In this project we will mainly focus on:
+
+    The Transport layer and especially TCP/UDP
+    On the Network layer with IP and ICMP
+
+The image bellow describes more concretely how you can relate to every level.
+
+Questions:
+
+What is the OSI model?
+
+    Set of specifications that network hardware manufacturers must respect
+    The OSI model is a conceptual model that characterizes the communication functions of a telecommunication system without regard to their underlying internal structure and technology
+    The OSI model is a model that characterizes the communication functions of a telecommunication system with a strong regard for their underlying internal structure and technology
+
+How is the OSI model organized?
+
+    Alphabetically
+    From the lowest to the highest level
+    Randomly
+
+Repo:
+
+    GitHub repository: alx-system_engineering-devops
+    Directory: 0x07-networking_basics
+    File: 0-OSI_model
+
+1. Types of network
+mandatory
+Score: 65.0% (Checks completed: 100.0%)
+
+LAN connect local devices together, WAN connects LANs together, and WANs are operating over the Internet.
+
+Questions:
+
+What type of network a computer in local is connected to?
+
+    Internet
+    WAN
+    LAN
+
+What type of network could connect an office in one building to another office in a building a few streets away?
+
+    Internet
+    WAN
+    LAN
+
+What network do you use when you browse www.google.com from your smartphone (not connected to the Wifi)?
+
+    Internet
+    WAN
+    LAN
+
+Repo:
+
+    GitHub repository: alx-system_engineering-devops
+    Directory: 0x07-networking_basics
+    File: 1-types_of_network
+
+2. MAC and IP address
+mandatory
+Score: 65.0% (Checks completed: 100.0%)
+
+Questions:
+
+What is a MAC address?
+
+    The name of a network interface
+    The unique identifier of a network interface
+    A network interface
+
+What is an IP address?
+
+    Is to devices connected to a network what postal address is to houses
+    The unique identifier of a network interface
+    Is a number that network devices use to connect to networks
+
+Repo:
+
+    GitHub repository: alx-system_engineering-devops
+    Directory: 0x07-networking_basics
+    File: 2-MAC_and_IP_address
+
+3. UDP and TCP
+mandatory
+Score: 65.0% (Checks completed: 100.0%)
+
+Let’s fill the empty parts in the drawing above.
+
+Questions:
+
+    Which statement is correct for the TCP box:
+        It is a protocol that is transferring data in a slow way but surely
+        It is a protocol that is transferring data in a fast way and might loss data along in the process
+    Which statement is correct for the UDP box:
+        It is a protocol that is transferring data in a slow way but surely
+        It is a protocol that is transferring data in a fast way and might loss data along in the process
+    Which statement is correct for the TCP worker:
+        Have you received boxes x, y, z?
+        May I increase the rate at which I am sending you boxes?
+
+Repo:
+
+    GitHub repository: alx-system_engineering-devops
+    Directory: 0x07-networking_basics
+    File: 3-UDP_and_TCP
+
+4. TCP and UDP ports
+mandatory
+Score: 100.0% (Checks completed: 100.0%)
+
+Once packets have been sent to the right network device using IP using either UDP or TCP as a mode of transportation, it needs to actually enter the network device.
+
+If we continue the comparison of a network device to your house, where IP address is like your postal address, UDP and TCP ports are like the windows and doors of your place. A TCP/UDP network device has 65535 ports. Some of them are officially reserved for a specific usage, some of them are known to be used for a specific usage (but nothing is officially declared) and the rest are free of use.
+
+While the full list of ports should not be memorized, it is important to know the most used ports, let’s start by remembering 3 of them:
+
+    22 for SSH
+    80 for HTTP
+    443 for HTTPS
+
+Note that a specific IP + port = socket.
+
+Write a Bash script that displays listening ports:
+
+    That only shows listening sockets
+    That shows the PID and name of the program to which each socket belongs
 
 Example:
 
-sylvain@ubuntu$ ./0-simply_match_school.rb School | cat -e
-School$
-sylvain@ubuntu$ ./0-simply_match_school.rb "Best School" | cat -e
-School$
-sylvain@ubuntu$ ./0-simply_match_school.rb "School Best School" | cat -e
-SchoolSchool$
-sylvain@ubuntu$ ./0-simply_match_school.rb "Grace Hopper" | cat -e
-$
-
-Repo:
-
-    GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 0-simply_match_school.rb
-
-1. Repetition Token #0
-mandatory
-Score: 65.0% (Checks completed: 100.0%)
-
-Requirements:
-
-    Find the regular expression that will match the above cases
-    Using the project instructions, create a Ruby script that accepts one argument and pass it to a regular expression matching method
-
-Repo:
-
-    GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 1-repetition_token_0.rb
-
-2. Repetition Token #1
-mandatory
-Score: 65.0% (Checks completed: 100.0%)
-
-Requirements:
-
-    Find the regular expression that will match the above cases
-    Using the project instructions, create a Ruby script that accepts one argument and pass it to a regular expression matching method
-
-Repo:
-
-    GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 2-repetition_token_1.rb
-
-3. Repetition Token #2
-mandatory
-Score: 65.0% (Checks completed: 100.0%)
-
-Requirements:
-
-    Find the regular expression that will match the above cases
-    Using the project instructions, create a Ruby script that accepts one argument and pass it to a regular expression matching method
-
-Repo:
-
-    GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 3-repetition_token_2.rb
-
-4. Repetition Token #3
-mandatory
-Score: 65.0% (Checks completed: 100.0%)
-
-Requirements:
-
-    Find the regular expression that will match the above cases
-    Using the project instructions, create a Ruby script that accepts one argument and pass it to a regular expression matching method
-    Your regex should not contain square brackets
-
-Repo:
-
-    GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 4-repetition_token_3.rb
-
-5. Not quite HBTN yet
-mandatory
-Score: 65.0% (Checks completed: 100.0%)
-
-Requirements:
-
-    The regular expression must be exactly matching a string that starts with h ends with n and can have any single character in between
-    Using the project instructions, create a Ruby script that accepts one argument and pass it to a regular expression matching method
-
-Example:
-
-sylvain@ubuntu$ ./5-beginning_and_end.rb 'hn' | cat -e
-$
-sylvain@ubuntu$ ./5-beginning_and_end.rb 'hbn' | cat -e
-hbn$
-sylvain@ubuntu$ ./5-beginning_and_end.rb 'hbtn' | cat -e
-$
-sylvain@ubuntu$ ./5-beginning_and_end.rb 'h8n' | cat -e
-h8n$
+sylvain@ubuntu$ sudo ./4-TCP_and_UDP_ports
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 *:sunrpc                *:*                     LISTEN      518/rpcbind
+tcp        0      0 *:ssh                   *:*                     LISTEN      1240/sshd
+tcp        0      0 *:32938                 *:*                     LISTEN      547/rpc.statd
+tcp6       0      0 [::]:sunrpc             [::]:*                  LISTEN      518/rpcbind
+tcp6       0      0 [::]:ssh                [::]:*                  LISTEN      1240/sshd
+tcp6       0      0 [::]:33737              [::]:*                  LISTEN      547/rpc.statd
+udp        0      0 *:sunrpc                *:*                                 518/rpcbind
+udp        0      0 *:691                   *:*                                 518/rpcbind
+udp        0      0 localhost:723           *:*                                 547/rpc.statd
+udp        0      0 *:60129                 *:*                                 547/rpc.statd
+udp        0      0 *:3845                  *:*                                 562/dhclient
+udp        0      0 *:bootpc                *:*                                 562/dhclient
+udp6       0      0 [::]:47444              [::]:*                              547/rpc.statd
+udp6       0      0 [::]:sunrpc             [::]:*                              518/rpcbind
+udp6       0      0 [::]:50038              [::]:*                              562/dhclient
+udp6       0      0 [::]:691                [::]:*                              518/rpcbind
+Active UNIX domain sockets (only servers)
+Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path
+unix  2      [ ACC ]     STREAM     LISTENING     7724     518/rpcbind         /run/rpcbind.sock
+unix  2      [ ACC ]     STREAM     LISTENING     6525     1/init              @/com/ubuntu/upstart
+unix  2      [ ACC ]     STREAM     LISTENING     8559     835/dbus-daemon     /var/run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     9190     1087/acpid          /var/run/acpid.socket
+unix  2      [ ACC ]     SEQPACKET  LISTENING     7156     378/systemd-udevd   /run/udev/control
 sylvain@ubuntu$
-$
 
 Repo:
 
     GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 5-beginning_and_end.rb
+    Directory: 0x07-networking_basics
+    File: 4-TCP_and_UDP_ports
 
-6. Call me maybe
+5. Is the host on the network
 mandatory
-Score: 65.0% (Checks completed: 100.0%)
+Score: 100.0% (Checks completed: 100.0%)
 
-This task is brought to you by a professional advisor Neha Jain, Senior Software Engineer at LinkedIn.
+The Internet Control Message Protocol (ICMP) is a protocol in the Internet protocol suite. It is used by network devices, to check if other network devices are available on the network. The command ping uses ICMP to make sure that a network device remains online or to troubleshoot issues on the network.
 
-Requirement:
-
-    The regular expression must match a 10 digit phone number
-
-Example:
-
-sylvain@ubuntu$ ./6-phone_number.rb 4155049898 | cat -e
-4155049898$
-sylvain@ubuntu$ ./6-phone_number.rb " 4155049898" | cat -e
-$
-sylvain@ubuntu$ ./6-phone_number.rb "415 504 9898" | cat -e
-$
-sylvain@ubuntu$ ./6-phone_number.rb "415-504-9898" | cat -e
-$
-sylvain@ubuntu$
-
-Repo:
-
-    GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 6-phone_number.rb
-
-7. OMG WHY ARE YOU SHOUTING?
-mandatory
-Score: 65.0% (Checks completed: 100.0%)
-
-Requirement:
-
-    The regular expression must be only matching: capital letters
-
-Example:
-
-sylvain@ubuntu$ ./7-OMG_WHY_ARE_YOU_SHOUTING.rb "I realLy hOpe VancouvEr posseSs Yummy Soft vAnilla Dupper Mint Ice Nutella cream" | cat -e
-ILOVESYSADMIN$
-sylvain@ubuntu$ ./7-OMG_WHY_ARE_YOU_SHOUTING.rb "WHAT do you SAY?" | cat -e
-WHATSAY$
-sylvain@ubuntu$ ./7-OMG_WHY_ARE_YOU_SHOUTING.rb "cannot read you" | cat -e
-$
-sylvain@ubuntu$
-
-Repo:
-
-    GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 7-OMG_WHY_ARE_YOU_SHOUTING.rb
-
-8. Textme
-#advanced
-Score: 65.0% (Checks completed: 100.0%)
-
-This exercise was prepared for you by Guillaume Plessis, VP of Infrastructure at TextMe. It is something he uses daily. You can thank Guillaume for his project on Twitter.
-
-For this task, you’ll be taking over Guillaume’s responsibilities: one afternoon, a TextMe VoIP Engineer comes to you and explains she wants to run some statistics on the TextMe app text messages transactions.
+Write a Bash script that pings an IP address passed as an argument.
 
 Requirements:
 
-    Your script should output: [SENDER],[RECEIVER],[FLAGS]
-        The sender phone number or name (including country code if present)
-        The receiver phone number or name (including country code if present)
-        The flags that were used
-
-You can find a [log file here].
+    Accepts a string as an argument
+    Displays Usage: 5-is_the_host_on_the_network {IP_ADDRESS} if no argument passed
+    Ping the IP 5 times
 
 Example:
 
-$ ./100-textme.rb 'Feb 1 11:00:00 ip-10-0-0-11 mdr: 2016-02-01 11:00:00 Receive SMS [SMSC:SYBASE1] [SVC:] [ACT:] [BINF:] [FID:] [from:Google] [to:+16474951758] [flags:-1:0:-1:0:-1] [msg:127:This planet has - or rather had - a problem, which was this: most of the people on it were unhappy for pretty much of the time.] [udh:0:]'
-Google,+16474951758,-1:0:-1:0:-1
-$
-$
-$ ./100-textme.rb 'Feb 1 11:00:00 ip-10-0-64-10 mdr: 2016-02-01 11:00:00 Receive SMS [SMSC:SYBASE2] [SVC:] [ACT:] [BINF:] [FID:] [from:+17272713208] [to:+19172319348] [flags:-1:0:-1:0:-1] [msg:136:Orbiting this at a distance of roughly ninety-two million miles is an utterly insignificant little blue green planet whose ape-descended] [udh:0:]'
-+17272713208,+19172319348,-1:0:-1:0:-1
-$
-$ ./100-textme.rb 'Feb 1 11:00:00 ip-10-0-64-11 mdr: 2016-02-01 11:00:00 Sent SMS [SMSC:SYBASE1] [SVC:backendtextme] [ACT:] [BINF:] [FID:] [from:18572406905] [to:14022180266] [flags:-1:0:-1:-1:-1] [msg:136:Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the Galaxy lies a small unregarded yellow sun.] [udh:0:]'
-18572406905,14022180266,-1:0:-1:-1:-1
-$
-$
-$ ./100-textme.rb 'Feb 1 11:00:00 ip-10-0-64-11 mdr: 2016-02-01 11:00:00 Sent SMS [SMSC:SYBASE1] [SVC:backendtextme] [ACT:] [BINF:] [FID:] [from:12392190384] [to:19148265919] [flags:-1:0:-1:-1:-1] [msg:99:life forms are so amazingly primitive that they still think digital watches are a pretty neat idea.] [udh:0:]'
-12392190384,19148265919,-1:0:-1:-1:-1
-$
+sylvain@ubuntu$ ./5-is_the_host_on_the_network 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=63 time=12.9 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=63 time=13.6 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=63 time=7.83 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=63 time=11.3 ms
+64 bytes from 8.8.8.8: icmp_seq=5 ttl=63 time=7.57 ms
+
+--- 8.8.8.8 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4006ms
+rtt min/avg/max/mdev = 7.570/10.682/13.679/2.546 ms
+sylvain@ubuntu$
+sylvain@ubuntu$ ./5-is_the_host_on_the_network
+Usage: 5-is_the_host_on_the_network {IP_ADDRESS}
+sylvain@ubuntu$ 
+
+It is interesting to look at the time value, which is the time that it took for the ICMP request to go to the 8.8.8.8 IP and come back to my host. The IP 8.8.8.8 is owned by Google, and the quickest roundtrip between my computer and Google was 7.57 ms which is pretty fast, which is a sign that the network path between my computer and Google’s datacenter is in good shape. A slow ping would indicate a slow network.
+
+Next time you feel that your connection is slow, try the ping command to see what is going on!
 
 Repo:
 
     GitHub repository: alx-system_engineering-devops
-    Directory: 0x06-regular_expressions
-    File: 100-textme.rb
+    Directory: 0x07-networking_basics
+    File: 5-is_the_host_on_the_network
 
 Copyright © 2024 ALX, All rights reserved.
